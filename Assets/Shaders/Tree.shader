@@ -47,9 +47,9 @@
     		// basic swaying movement
 			
    			float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
-			   _SwaySpeed = _SwaySpeed+(wpos.x+wpos.z);
-   			float x = sin(wpos.x / _Rigidness + (_Time.x * _SwaySpeed)) *(v.vertex.y - _YOffset) * 5 ;
-   			float z = sin(wpos.z / _Rigidness + (_Time.x * _SwaySpeed)) *(v.vertex.y - _YOffset) * 5;
+			float newSwaySpeed = _SwaySpeed+(wpos.x+wpos.z);
+   			float x = sin(wpos.x / _Rigidness + (_Time.x * newSwaySpeed)) *(v.vertex.y - _YOffset) * 5 ;
+   			float z = sin(wpos.z / _Rigidness + (_Time.x * newSwaySpeed)) *(v.vertex.y - _YOffset) * 5;
    			v.vertex.x += (step(0,v.vertex.y - _YOffset) * x * _SwayMax);
    			v.vertex.z += (step(0,v.vertex.y - _YOffset) * z * _SwayMax);
  
