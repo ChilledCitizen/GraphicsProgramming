@@ -27,8 +27,6 @@
  
          scrolledUV += fixed2(xScrollValue, yScrollValue);
          half4 c = tex2D(_MainTex, scrolledUV);
- 
-         o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
          o.Albedo += c.rbg;
  
         

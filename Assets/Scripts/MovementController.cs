@@ -5,26 +5,48 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
 
-    // Use this for initialization
-    public float movementSpeed = 3;
-	public float rotateSpeed = 200;
-    private Rigidbody rb;
+    // Transforms to act as start and end markers for the journey.
+    public Transform startMarker;
+    public Transform endMarker;
+
+    // Movement speed in units/sec.
+    public float speed = 1.0F;
+
+    // Time when the movement started.
+    private float startTime;
+
+    // Total distance between the markers.
+    private float journeyLength;
+    private bool goingToEnd = true;
+
     void Start()
     {
-
-        rb = GetComponent<Rigidbody>();
-
+        
     }
 
-    // Update is called once per frame
+    // Follows the target position like with a spring
     void Update()
     {
+        
+        // Set our position as a fraction of the distance between the markers.
+        if (goingToEnd)
+        {
+            transform.position = Vector3.Lerp(startMarker.position, endMarker.position, speed);
+            if (transform.position == endMarker.position)
+            {
+                goingToEnd = false;
+            }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * rotateSpeed;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+        }
 
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, z);
+        if (!goingToEnd)
+        {
+            transform.position = Vector3.Lerp(endMarker.position, startMarker.position, speed);
+            if (transform.position == startMarker.position)
+            {
+                goingToEnd = true;
+            }
+        }
 
     }
 }
